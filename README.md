@@ -1,47 +1,41 @@
-Generator simplu de chestionare
+GHELESEL DAVID-MIHAI
 
-Fisiere utilizate si datele pe care le-am stocat in fiecare:
+Simple Quiz Generator
 
-users.csv: numele si parola utilizatorilor
+Files used and the data stored in them:
 
-questions.csv: id-ul si textul intrebarilor
+- users.csv: username and password
+- questions.csv: id and the text of the questions
+- fullQuestions.csv: questions name, id and type (same as for get-quiz-details)
+- answers.csv: answers text, id and their truth value (true or false)
+- realAnswers.csv: an auxiliary file to remove blank lines from answers.csv
+- quizzes.csv: id and name of the quizzes
+- completedQuizzes.csv: whether the quizzes have been completed or not
+- quizQuestions.csv: id of questions added to a quiz
 
-fullQuestions.csv: numele intrebarilor, id-ul si tipul (la fel ca pentru get-quiz-details)
+*The readFromFile function returns a list of strings containing each row from the various files.
 
-answers.csv: textul raspunsurilor, id-ul si valoarea lor de adevar
+Functionalities: 
 
-realAnswers.csv: un fisier auxiliar cu ajutorul caruia elimin liniile goale din answers.csv
 
-quizzes.csv: id-ul si numele chestionarelor
+Create user: I call the createUser function, which creates a new user with the appropriate name and password (without the '-u' and '-p' parameters).
 
-completedQuizzes.csv: daca chestionarele au fost completate sau nu
+Create question: I call the createQuestion function, which creates a new question and adds the answers (received as arguments from the command line) to the list of answers, on the line corresponding to the question id.
 
-quizQuestions.csv: id-ul intrebarilor adaugate la un quiz
+Return question id by text: I scroll through the list of questions and if the question text is present, I return the question index.
 
-\*Functia readFromFile intoarce o lista de String-uri ce contine fiecare rand din diversele fisiere.
+All questions in the system: return each element of the question list.
 
-Creare utilizator: apelez functia createUser, care creeaza un nou utilizator cu numele si parola corespunzatoare (fara parametrii '-u' si '-p').
+Create quiz: I keep the ids of the questions in a list that I write to the quizQuestions file (same as for the question answers).
 
-Creare intrebare: apelez functia createQuestion, care creeaza o noua intrebare si adauga raspunsurile (primite ca argumente din linia de comanda)
-in lista de raspunsuri, pe linia corespunzatoare id-ului intrebarii.
+Return quiz id: same as get-question-id
 
-Intoarce id-ul intrebarii dupa text: iterez prin lista de intrebari si daca textul intrebarii este prezent, intorc index-ul intrebarii.
+Return all quizzes: same as get-all-questions
 
-Toate intrebarile din sistem: intorc fiecare element al listei de intrebari.
+Return quiz details by id: I iterate through the list of questions (from fullQuestions.csv) and, for each item in it, I iterate through the corresponding answer list.
 
-Creare chestionar: retin id-urile intrebarilor intr-o lista pe care o scriu in fisierul quizQuestions (la fel ca pentru raspunsurile intrebarilor)
+Load quiz answers: first I go through the answer list to see how many right and wrong answers there are for each question and I retain them. Then I calculate the score for each question and add it to the total score.
 
-Intoarce id-ul quiz-ului: La fel ca la get-question-id
+Delete quiz: I scroll through the list of quizzes and delete the line with my quiz id.
 
-Intoarce toate quiz-urile: la fel ca la get-all-questions
-
-Intoarce detaliile quiz-ului in functie de id: iterez prin lista de intrebari (din fullQuestions.csv) si, pentru fiecare element din ea, iterez
-prin lista de raspunsuri corespunzatoare.
-
-Incarca raspunsuri chestionar: mai intai parcurg lista de raspunsuri pentru a vedea cate raspunsuri corecte si gresite sunt la fiecare intrebare
-si le retin. Apoi calculez punctajul pentru fiecare intrebare si il adaug la scorul total.
-
-Stergere quiz: iterez prin lista de quiz-uri si sterg linia cu id-ul quiz-ului meu.
-
-Cazurile de erori (Login credentials are wrong, username doesn't exist etc.) le-am tratat in main, in functie de argumentele primite in linia de
-comanda.
+Error cases (Login credentials are wrong, username doesn't exist etc.): I treated in main, depending on the arguments received in the command line.
